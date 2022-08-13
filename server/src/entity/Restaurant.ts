@@ -6,7 +6,6 @@ import {
   UpdateDateColumn,
   BaseEntity,
 } from "typeorm";
-import { IsEmail, Length } from "class-validator";
 import { ObjectType, Field, ID } from "type-graphql";
 
 @Entity("restaurants")
@@ -20,7 +19,6 @@ export class Restaurant extends BaseEntity {
   @Column({
     nullable: false,
   })
-  @Length(1, 255)
   name: string;
 
   @Field(() => String)
@@ -33,7 +31,6 @@ export class Restaurant extends BaseEntity {
   @Column({
     nullable: false,
   })
-  @IsEmail()
   email: string;
 
   @Field(() => String)
@@ -49,4 +46,19 @@ export class Restaurant extends BaseEntity {
   @Field(() => Date)
   @UpdateDateColumn()
   updatedAt: Date;
+}
+
+@ObjectType()
+export class RestaurantPaginatationResponse {
+  @Field(() => [Restaurant])
+  restaurants: Restaurant[];
+
+  @Field(() => Number)
+  totalCount: number;
+
+  @Field(() => Number)
+  page: number;
+
+  @Field(() => Number)
+  pageSize: number;
 }
