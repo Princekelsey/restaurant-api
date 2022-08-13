@@ -22,6 +22,10 @@
   "scripts": {
     "start": "ts-node src/index.ts",
     "dev": "nodemon -w src --ext ts --exec ts-node src/index.ts",
-    "typeorm": "typeorm-ts-node-commonjs"
+    "typeorm": "typeorm-ts-node-commonjs",
+    "migration:create": "node --loader ts-node/esm ./node_modules/.bin/typeorm migration:create src/migration/restaurant",
+    "migration:generate": "node --loader ts-node/esm ./node_modules/.bin/typeorm migration:generate -d ./src/data-source.ts ./src/migration/restaurant",
+    "migration:up": "node --loader ts-node/esm ./node_modules/.bin/typeorm migration:run -d ./src/data-source.ts",
+    "migration:down": "node --loader ts-node/esm ./node_modules/.bin/typeorm migration:revert -d ./src/data-source.ts"
   }
 }
