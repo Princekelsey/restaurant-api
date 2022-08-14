@@ -23,7 +23,7 @@ export class RestaurantResolver {
     const [restaurants, count] = await RestaurantRepository.findAndCount({
       skip: pageSize * (page - 1),
       take: pageSize,
-      order: { createdAt: "DESC" },
+      order: { id: "DESC" },
     });
 
     return {
@@ -44,7 +44,7 @@ export class RestaurantResolver {
       skip: pageSize * (page - 1),
       take: pageSize,
       where: { name: ILike(`%${searchTerm}%`) },
-      order: { createdAt: "DESC" },
+      order: { id: "DESC" },
     });
 
     return {
