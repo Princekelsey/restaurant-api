@@ -1,5 +1,5 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
-import { Like } from "typeorm";
+import { ILike } from "typeorm";
 import { AppDataSource } from "../data-source";
 import {
   Restaurant,
@@ -43,7 +43,7 @@ export class RestaurantResolver {
     const [restaurants, count] = await RestaurantRepository.findAndCount({
       skip: pageSize * (page - 1),
       take: pageSize,
-      where: { name: Like(`%${searchTerm}%`) },
+      where: { name: ILike(`%${searchTerm}%`) },
       order: { createdAt: "DESC" },
     });
 
@@ -66,7 +66,7 @@ export class RestaurantResolver {
 
   @Mutation(() => Restaurant)
   async updateRestaurant(
-    @Arg("id") id: number,
+    @Arg("id") id: string,
     @Arg("data") data: UpdateRestaurantInput
   ): Promise<Restaurant> {
     const restaurant = await RestaurantRepository.findOne({ where: { id } });
@@ -78,7 +78,7 @@ export class RestaurantResolver {
   }
 
   @Mutation(() => Boolean)
-  async deleteRestaurant(@Arg("id") id: number): Promise<boolean> {
+  async deleteRestaurant(@Arg("id") id: string): Promise<boolean> {
     const restaurant = await RestaurantRepository.findOne({ where: { id } });
 
     if (!restaurant) throw new Error(`Restuarant with id: ${id} not found`);

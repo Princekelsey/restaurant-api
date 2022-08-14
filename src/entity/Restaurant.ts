@@ -13,7 +13,7 @@ import { ObjectType, Field, ID } from "type-graphql";
 export class Restaurant extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
-  id: number;
+  id: string;
 
   @Field(() => String)
   @Column({

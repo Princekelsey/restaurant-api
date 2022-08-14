@@ -1,6 +1,4 @@
 import "reflect-metadata";
-import { config } from "dotenv";
-config();
 import { AppDataSource } from "./data-source";
 import { ApolloServer } from "apollo-server";
 import { buildSchema } from "type-graphql";

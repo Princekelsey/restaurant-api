@@ -1,7 +1,8 @@
 import "reflect-metadata";
-import { DataSource } from "typeorm";
+import { DataSource, DataSourceOptions } from "typeorm";
+import { SeederOptions } from "typeorm-extension";
 
-export const AppDataSource = new DataSource({
+const options: DataSourceOptions & SeederOptions = {
   type: "postgres",
   host: "localhost",
   port: 5432,
@@ -13,4 +14,7 @@ export const AppDataSource = new DataSource({
   entities: ["src/entity/**/*.ts", "./entity/**/*.js"],
   migrations: ["src/migration/**/*.ts", "./migration/**/*.js"],
   subscribers: ["src/subscriber/**/*.ts", "./subscriber/**/*.js"],
-});
+  seeds: ["src/seeds/**/*.ts", "./seeds/**/*.js"],
+};
+
+export const AppDataSource = new DataSource(options);
